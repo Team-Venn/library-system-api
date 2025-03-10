@@ -1,9 +1,10 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const bookSchema = new Schema({
-  tittle: {
+  title: {
     type: String,
     require: true,
+    unique: true
   },
   author: {
     type: String,
@@ -26,4 +27,4 @@ const bookSchema = new Schema({
   },
 });
 
-export const book = mongoose.model("book", bookSchema);
+export const BookModel = model("book", bookSchema);

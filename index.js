@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import bookRouter from './routes/library-routes.js';
 
 
 //database connection
@@ -20,6 +21,8 @@ connectToDatabase();
 const app = express();
 
 app.use(express.json());
+
+app.use('/api/v1', bookRouter);
 
 app.listen(4100, () => {
     console.log('Server is listening on port 4100');

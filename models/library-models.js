@@ -1,9 +1,10 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const bookSchema = new Schema({
-  tittle: {
+  title: {
     type: String,
-    require: true,
+    required: true,
+    unique: true
   },
   author: {
     type: String,
@@ -12,18 +13,18 @@ const bookSchema = new Schema({
 
   description: {
     type: String,
-    require: true,
+    required: true,
   },
 
   genre: {
     type: String,
-    require: true,
+    required: true,
   },
 
   published_year: {
     year: Number,
-    require: true,
+    required: true,
   },
 });
 
-export const book = mongoose.model("book", bookSchema);
+export const BookModel = model("book", bookSchema);

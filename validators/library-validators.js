@@ -5,5 +5,6 @@ export const addBookValidator = Joi.object({
   author: Joi.string().required(),
   description: Joi.string().required(),
   genre: Joi.string().required(),
-  publishedYear: Joi.string().required(),
+  image: Joi.string().required(),
+  publishedYear: Joi.number().required(),
 });

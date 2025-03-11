@@ -19,11 +19,12 @@ connectToDatabase();
 
 // app creation
 const app = express();
+const port = process.env.PORT || 4100
 
 app.use(express.json());
 
 app.use('/api/v1', bookRouter);
 
-app.listen(4100, () => {
-    console.log('Server is listening on port 4100');
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
 })

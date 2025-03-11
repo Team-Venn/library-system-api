@@ -1,8 +1,16 @@
 import { BookModel } from "../models/library-models.js";
+import { addBookValidator } from "../validators/library-validators.js";
 
 export const postBook = async (req, res, next) => {
 
   try {
+    
+     // Validate book information
+     const {error, value} = addBookValidator.validate(req.body, {abortEarly : false});
+     if (error){
+         return res.status(422).json(error);
+     }
+
     const book = await BookModel.create(req.body);
     res.status(200).json({ message: 'New book created and added to Shelf', Book: book });
   } catch (error) {

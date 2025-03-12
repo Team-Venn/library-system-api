@@ -11,6 +11,6 @@ bookRouter.get('/book/:id', getBookById);
 
 bookRouter.patch('/book/:id', updateBook);
 
-bookRouter.delete('book/:id', deleteBook);
+bookRouter.delete('/book/:id', deleteBook);
 
 export default bookRouter;

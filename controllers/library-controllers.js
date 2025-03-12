@@ -26,17 +26,32 @@ export const postBook = async (req, res, next) => {
 
 export const getBooks = async (req, res, next) => {
   try {
-    const book = await BookModel.find();
-    res.status(200).json({ message: "All books", book });
+    const books = await BookModel.find();
+    res.status(200).json({ message: "All books", books });
   } catch (error) {
     next(error);
   }
 };
 
-export const getBookById = async (req, res, next) => {
+export const searchBooks = async (req, res, next) => {
   try {
-    const book = await BookModel.findById(req.params.id, value);
-    res.status(200).json(book);
+    const { title, genre, author } = req.query;
+
+    // Build query object based on provided search parameters
+    const query = {};
+    if (title) {
+      query.title = { $regex: title, $options: 'i' }; // Case insensitive search
+    }
+    if (genre) {
+      query.genre = { $regex: genre, $options: 'i' };
+    }
+    if (author) {
+      query.author = { $regex: author, $options: 'i' };
+    }
+
+    const books = await BookModel.find(query);
+    const countMessage = `${books.length} book${books.length !== 1 ? 's' : ''} found`; // Create count message
+    res.status(200).json({ message: countMessage , books });
   } catch (error) {
     next(error);
   }

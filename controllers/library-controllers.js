@@ -35,7 +35,15 @@ export const getBooks = async (req, res, next) => {
 
 export const getBookById = async (req, res, next) => {
   try {
-    //Validate Information
+    const book = await BookModel.findById(req.params.id, value);
+    res.status(200).json(book);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateBook = async (req, res, next) => {
+  try {
     const { error, value } = addBookValidator.validate(
       {
         ...req.body,
@@ -46,16 +54,7 @@ export const getBookById = async (req, res, next) => {
     if (error) {
       return res.status(422).json(error);
     }
-    const book = await BookModel.findById(req.params.id, value);
-    res.status(200).json(book);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const updateBook = async (req, res, next) => {
-  try {
-    const book = await BookModel.findByIdAndUpdate(req.params.id, req.body, {
+    const book = await BookModel.findByIdAndUpdate(req.params.id, value, {
       new: true,
     });
     res.status(200).json({ message: "Book details Updated !", book });

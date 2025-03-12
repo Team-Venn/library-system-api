@@ -11,7 +11,7 @@ export const postBook = async (req, res, next) => {
          return res.status(422).json(error);
      }
 
-    const book = await BookModel.create(req.body);
+    const book = await BookModel.create(value);
     res.status(200).json({ message: 'New book created and added to Shelf', Book: book });
   } catch (error) {
     next(error);

@@ -7,7 +7,7 @@ export const postBook = async (req, res, next) => {
     const { error, value } = addBookValidator.validate(
       {
         ...req.body,
-        image: req.file.filename,
+        image: req.file?.filename,
       },
       { abortEarly: false }
     );
@@ -18,7 +18,7 @@ export const postBook = async (req, res, next) => {
     const book = await BookModel.create(value);
     res
       .status(200)
-      .json({ message: "New book created and added to Shelf", Book: book });
+      .json({ message: "New book created and added to Shelf", books: book });
   } catch (error) {
     next(error);
   }
